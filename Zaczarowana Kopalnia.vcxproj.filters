@@ -18,9 +18,15 @@
     <ClCompile Include="Komorki.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Obiekty.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Komorki.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Obiekty.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

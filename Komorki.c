@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "Komorki.h"
+#include "Obiekty.h"
 
 void PoliczDystrybucje( NowaPlansza *np )
 {
@@ -54,6 +54,8 @@ void UtworzPlansze( Plansza *plansza, NowaPlansza *np )
 
     PoliczDystrybucje( np );
 
+    srand( np->ziarno );
+
     for( y = 0; y < P_Wys; y++ )
     {
         for( x = 0; x < P_Szer; x++ )
@@ -61,8 +63,6 @@ void UtworzPlansze( Plansza *plansza, NowaPlansza *np )
             ZainicjujPole( plansza, np, plansza->komorki[ y ] + x, x, y );
         }
     }
-
-    srand( np->ziarno );
 
     for( op = 0; op < np->zlicz; op++ )
     {
@@ -91,12 +91,12 @@ void WypiszPlansze( Plansza *plansza )
 int main( void )
 {
     static NowaPlansza np;
-    Plansza p;
+    static Plansza p;
 
     np.dystrybucja[ T_Glaz ] = 0x10;
     np.dystrybucja[ T_Diament ] = 0x18;
-    np.dystrybucja[ T_Pusta ] = 0x18;
-    np.dystrybucja[ T_Ziemia ] = 0xc0;
+    np.dystrybucja[ T_Pusta ] = 0x28;
+    np.dystrybucja[ T_Ziemia ] = 0xb0;
     np.ziarno = 100;
 
     np.operacje[ 0 ].lewo = 1;
@@ -107,6 +107,12 @@ int main( void )
 
     UtworzPlansze( &p, &np );
     WypiszPlansze( &p );
+
+    Przeskanuj( &p );
+
+    WypiszPlansze( &p );
+
+
     return( 0 );
 }
 

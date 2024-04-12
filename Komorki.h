@@ -65,6 +65,7 @@ typedef struct Komorka
 {
     Obiekt obiekt;    
     Sasiad sasiedzi[ K_Zlicz ];
+    BOOL przeskanowane;
 } Komorka, Wiersz[ P_Szer ], Macierz[ P_Wys ][ P_Szer ];
 
 typedef struct Plansza
