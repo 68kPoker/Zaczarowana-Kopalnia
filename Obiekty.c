@@ -48,6 +48,24 @@ ULONG Glaz( Plansza *plansza, UBYTE x, UBYTE y, Komorka *kom )
         Przemiesc( plansza, x, y, kom, K_Dol, cel );
         return( 1 );
     }
+    else if( cel->obiekt.typ == T_Sciana || cel->obiekt.typ == T_Glaz || cel->obiekt.typ == T_Diament )
+    {
+        cel = plansza->komorki[ y ] + x - 1;
+
+        if( cel->obiekt.typ == T_Pusta && plansza->komorki[ y + 1 ][ x - 1 ].obiekt.typ == T_Pusta )
+        {
+            Przemiesc( plansza, x, y, kom, K_Lewo, cel );
+            return( 1 );
+        }
+
+        cel = plansza->komorki[ y ] + x + 1;
+
+        if( cel->obiekt.typ == T_Pusta && plansza->komorki[ y + 1 ][ x + 1 ].obiekt.typ == T_Pusta )
+        {
+            Przemiesc( plansza, x, y, kom, K_Prawo, cel );
+            return( 1 );
+        }
+    }
 
     return( 0 );
 }
@@ -62,6 +80,24 @@ ULONG Diament( Plansza *plansza, UBYTE x, UBYTE y, Komorka *kom )
     {
         Przemiesc( plansza, x, y, kom, K_Dol, cel );
         return( 1 );
+    }
+    else if( cel->obiekt.typ == T_Sciana || cel->obiekt.typ == T_Glaz || cel->obiekt.typ == T_Diament )
+    {
+        cel = plansza->komorki[ y ] + x - 1;
+
+        if( cel->obiekt.typ == T_Pusta && plansza->komorki[ y + 1 ][ x - 1 ].obiekt.typ == T_Pusta )
+        {
+            Przemiesc( plansza, x, y, kom, K_Lewo, cel );
+            return( 1 );
+        }
+
+        cel = plansza->komorki[ y ] + x + 1;
+
+        if( cel->obiekt.typ == T_Pusta && plansza->komorki[ y + 1 ][ x + 1 ].obiekt.typ == T_Pusta )
+        {
+            Przemiesc( plansza, x, y, kom, K_Prawo, cel );
+            return( 1 );
+        }
     }
 
     return( 0 );

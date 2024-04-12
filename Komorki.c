@@ -93,11 +93,11 @@ int main( void )
     static NowaPlansza np;
     static Plansza p;
 
-    np.dystrybucja[ T_Glaz ] = 0x10;
+    np.dystrybucja[ T_Glaz ] = 0x20;
     np.dystrybucja[ T_Diament ] = 0x18;
-    np.dystrybucja[ T_Pusta ] = 0x28;
-    np.dystrybucja[ T_Ziemia ] = 0xb0;
-    np.ziarno = 100;
+    np.dystrybucja[ T_Pusta ] = 0x48;
+    np.dystrybucja[ T_Ziemia ] = 0x80;
+    np.ziarno = 200;
 
     np.operacje[ 0 ].lewo = 1;
     np.operacje[ 0 ].gora = 1;
