@@ -49,7 +49,7 @@ typedef union Tryb
 
 typedef struct Sasiad
 {
-    UBYTE rozmiar;
+    UBYTE odleglosc;
     UBYTE grafika;
 } Sasiad;
 
@@ -59,6 +59,8 @@ typedef struct Obiekt
     Tryb tryb;
     UBYTE grafika;
     UBYTE klatka;
+    Kierunek kier;
+    UBYTE odleglosc;
 } Obiekt;
 
 typedef struct Komorka

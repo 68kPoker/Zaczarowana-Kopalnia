@@ -1,8 +1,8 @@
 
 #include "Komorki.h"
 
-#define Rozmiar  16
-#define Szybkosc 2
+#define Odleglosc 15
+#define Szybkosc  1
 
 typedef ULONG Obsluga( Plansza *plansza, UBYTE x, UBYTE y, Komorka *kom );
 

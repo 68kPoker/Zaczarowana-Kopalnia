@@ -25,11 +25,13 @@ Kierunek opozycja[] =
 void Przemiesc( Plansza *plansza, UBYTE x, UBYTE y, Komorka *kom, Kierunek kier, Komorka *cel )
 {
     cel->obiekt = kom->obiekt;
+    cel->obiekt.kier = opozycja[ kier ];
+    cel->obiekt.odleglosc = Odleglosc;
 
     kom->obiekt.typ = T_Pusta;
 
-    kom->sasiedzi[ kier ].rozmiar = Rozmiar;
-    cel->sasiedzi[ opozycja[ kier ] ].rozmiar = 0;
+    kom->sasiedzi[ kier ].odleglosc = 0;
+    cel->sasiedzi[ opozycja[ kier ] ].odleglosc = Odleglosc;
 
     if( kier == K_Prawo || kier == K_Dol )
     {
@@ -111,21 +113,33 @@ ULONG Bohater( Plansza *plansza, UBYTE x, UBYTE y, Komorka *kom )
 void Przeskanuj( Plansza *plansza )
 {
     UBYTE x, y;
-    Komorka *kom;
+    Komorka *kom, *cel;
+    Kierunek kier;
 
     for( y = 0; y < P_Wys; y++ )
     {
         for( x = 0; x < P_Szer; x++ )
         {
             kom = plansza->komorki[ y ] + x;
+            kier = kom->obiekt.kier;
 
             if( !kom->przeskanowane )
             {
-                Obsluga *obsluga = tablica[ kom->obiekt.typ ];
-
-                if( obsluga )
+                if( kom->obiekt.odleglosc == 0 )
                 {
-                    obsluga( plansza, x, y, kom );
+                    Obsluga *obsluga = tablica[ kom->obiekt.typ ];
+
+                    if( obsluga )
+                    {
+                        obsluga( plansza, x, y, kom );
+                    }
+                }
+                else
+                {
+                    kom->obiekt.odleglosc -= Szybkosc;
+                    kom->sasiedzi[ kier ].odleglosc -= Szybkosc;                    
+                    cel = plansza->komorki[ y + przes[ kier ].dy ] + x + przes[ kier ].dx;
+                    cel->sasiedzi[ opozycja[ kier ] ].odleglosc += Szybkosc;
                 }
             }
             else

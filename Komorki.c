@@ -86,6 +86,21 @@ void WypiszPlansze( Plansza *plansza )
         }
         putchar( '\n' );
     }
+    putchar( '\n' );
+
+    for( y = 0; y < P_Wys; y++ )
+    {
+        for( x = 0; x < P_Szer; x++ )
+        {
+            UBYTE od = plansza->komorki[ y ][ x ].obiekt.odleglosc;
+            if( od == 0 )
+                putchar( '.' );
+            else
+                printf( "%x", od );
+        }
+        putchar( '\n' );
+    }
+    putchar( '\n' );
 }
 
 int main( void )
@@ -108,11 +123,14 @@ int main( void )
     UtworzPlansze( &p, &np );
     WypiszPlansze( &p );
 
-    Przeskanuj( &p );
+    UBYTE i;
+    for( i = 0; i < 16; i++ )
+    {
+        Przeskanuj( &p );
 
-    WypiszPlansze( &p );
-
-
+        WypiszPlansze( &p );
+    }
+    
     return( 0 );
 }
 
