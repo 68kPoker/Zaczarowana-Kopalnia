@@ -1,7 +1,7 @@
 
 /* Komorki */
 
-#include <exec/types.h>
+#include <graphics/gfx.h>
 
 #define P_Szer 20
 #define P_Wys  16
@@ -72,6 +72,9 @@ typedef struct Plansza
 {
     Macierz komorki;
     UBYTE X, Y;
+    struct RastPort *rp;
+    struct BitMap *gfx;
+    PLANEPTR mask;
 } Plansza;
 
 typedef struct Operacja

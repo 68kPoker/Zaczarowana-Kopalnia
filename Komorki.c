@@ -14,13 +14,19 @@ void PoliczDystrybucje( NowaPlansza *np )
     }
 }
 
+void UstawPole( Komorka *kom, TypObiektu typ )
+{
+    kom->obiekt.typ = typ;
+    kom->ten.grafika = klatki[ typ ];
+}
+
 void ZainicjujPole( Plansza *plansza, NowaPlansza *np, Komorka *kom, UBYTE x, UBYTE y )
 {
     UBYTE typ, los;
 
     if( x == 0 || y == 0 || x == P_Szer - 1 || y == P_Wys - 1 )
     {
-        kom->obiekt.typ = T_Sciana;
+        UstawPole( kom, T_Sciana );
         return;
     }
 
@@ -30,7 +36,7 @@ void ZainicjujPole( Plansza *plansza, NowaPlansza *np, Komorka *kom, UBYTE x, UB
     {
         if( los < np->dystrybucja[ typ ] )
         {
-            kom->obiekt.typ = typ;
+            UstawPole( kom, typ );            
             return;
         }
     }
@@ -43,7 +49,8 @@ void WykonajOperacje( Plansza *plansza, NowaPlansza *np, UBYTE op )
     switch( oper->typ )
     {
     case O_Wstaw:
-        plansza->komorki[ oper->gora ][ oper->lewo ].obiekt = oper->obiekt;
+        UstawPole( plansza->komorki[ oper->gora ] + oper->lewo, oper->obiekt.typ );
+        /* plansza->komorki[oper->gora][oper->lewo].obiekt = oper->obiekt; */
         break;
     }
 }

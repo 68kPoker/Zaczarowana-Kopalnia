@@ -1,11 +1,6 @@
 
 #include "Obiekty.h"
 
-typedef struct Przesuniecie
-{
-    BYTE dx, dy;
-} Przesuniecie;
-
 Przesuniecie przes[] =
 {
     { -1,  0 },
@@ -22,16 +17,22 @@ Kierunek opozycja[] =
     K_Gora
 };
 
+UBYTE klatki[ T_Zlicz ] =
+{
+    1, 2, 3, 4, 5, 6
+};
+
 void Przemiesc( Plansza *plansza, UBYTE x, UBYTE y, Komorka *kom, Kierunek kier, Komorka *cel )
 {
     Obiekt *ob = &kom->obiekt;
 
     cel->kier = kier;
-    cel->obiekt = *ob;    
+    cel->obiekt = *ob;
     cel->ten.odleglosc = Odleglosc;
+    cel->ten.grafika = klatki[ ob->typ ];
 
     kom->obiekt.typ = T_Pusta;
-    kom->sasiedzi[ kier ].grafika = kom->ten.grafika;
+    kom->sasiedzi[ kier ].grafika = cel->ten.grafika;
     kom->sasiedzi[ kier ].odleglosc = Szybkosc;
 
     if( kier == K_Prawo || kier == K_Dol )
