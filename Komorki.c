@@ -92,7 +92,7 @@ void WypiszPlansze( Plansza *plansza )
     {
         for( x = 0; x < P_Szer; x++ )
         {
-            UBYTE od = plansza->komorki[ y ][ x ].obiekt.odleglosc;
+            UBYTE od = plansza->komorki[ y ][ x ].ten.odleglosc;
             if( od == 0 )
                 putchar( '.' );
             else
@@ -107,6 +107,7 @@ int main( void )
 {
     static NowaPlansza np;
     static Plansza p;
+    UBYTE i;
 
     np.dystrybucja[ T_Glaz ] = 0x20;
     np.dystrybucja[ T_Diament ] = 0x18;
@@ -120,15 +121,14 @@ int main( void )
     np.operacje[ 0 ].typ = O_Wstaw;
     np.zlicz = 1;
 
-    UtworzPlansze( &p, &np );
-    WypiszPlansze( &p );
-
-    UBYTE i;
+    UtworzPlansze(&p, &np);
+    /* WypiszPlansze(&p); */
+    
     for( i = 0; i < 16; i++ )
     {
         Przeskanuj( &p );
 
-        WypiszPlansze( &p );
+        NarysujPlansze( &p );
     }
     
     return( 0 );

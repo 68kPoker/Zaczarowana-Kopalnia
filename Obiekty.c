@@ -24,14 +24,15 @@ Kierunek opozycja[] =
 
 void Przemiesc( Plansza *plansza, UBYTE x, UBYTE y, Komorka *kom, Kierunek kier, Komorka *cel )
 {
-    cel->obiekt = kom->obiekt;
-    cel->obiekt.kier = opozycja[ kier ];
-    cel->obiekt.odleglosc = Odleglosc;
+    Obiekt *ob = &kom->obiekt;
+
+    cel->kier = kier;
+    cel->obiekt = *ob;    
+    cel->ten.odleglosc = Odleglosc;
 
     kom->obiekt.typ = T_Pusta;
-
-    kom->sasiedzi[ kier ].odleglosc = 0;
-    cel->sasiedzi[ opozycja[ kier ] ].odleglosc = Odleglosc;
+    kom->sasiedzi[ kier ].grafika = kom->ten.grafika;
+    kom->sasiedzi[ kier ].odleglosc = Szybkosc;
 
     if( kier == K_Prawo || kier == K_Dol )
     {
@@ -113,7 +114,7 @@ ULONG Bohater( Plansza *plansza, UBYTE x, UBYTE y, Komorka *kom )
 void Przeskanuj( Plansza *plansza )
 {
     UBYTE x, y;
-    Komorka *kom, *cel;
+    Komorka *kom, *zrod;
     Kierunek kier;
 
     for( y = 0; y < P_Wys; y++ )
@@ -121,11 +122,11 @@ void Przeskanuj( Plansza *plansza )
         for( x = 0; x < P_Szer; x++ )
         {
             kom = plansza->komorki[ y ] + x;
-            kier = kom->obiekt.kier;
+            kier = kom->kier;
 
             if( !kom->przeskanowane )
             {
-                if( kom->obiekt.odleglosc == 0 )
+                if( kom->ten.odleglosc == 0 )
                 {
                     Obsluga *obsluga = tablica[ kom->obiekt.typ ];
 
@@ -136,10 +137,9 @@ void Przeskanuj( Plansza *plansza )
                 }
                 else
                 {
-                    kom->obiekt.odleglosc -= Szybkosc;
-                    kom->sasiedzi[ kier ].odleglosc -= Szybkosc;                    
-                    cel = plansza->komorki[ y + przes[ kier ].dy ] + x + przes[ kier ].dx;
-                    cel->sasiedzi[ opozycja[ kier ] ].odleglosc += Szybkosc;
+                    kom->ten.odleglosc -= Szybkosc;                    
+                    zrod = plansza->komorki[ y - przes[ kier ].dy ] + x - przes[ kier ].dx;
+                    zrod->sasiedzi[ kier ].odleglosc += Szybkosc;
                 }
             }
             else

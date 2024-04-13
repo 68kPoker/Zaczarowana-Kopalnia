@@ -135,6 +135,7 @@
   <ItemGroup>
     <ClCompile Include="Komorki.c" />
     <ClCompile Include="Obiekty.c" />
+    <ClCompile Include="Rysowanie.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Komorki.h" />

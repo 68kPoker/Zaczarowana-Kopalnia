@@ -47,26 +47,24 @@ typedef union Tryb
     Kierunek kierunek;
 } Tryb;
 
-typedef struct Sasiad
+typedef struct Grafika
 {
     UBYTE odleglosc;
     UBYTE grafika;
-} Sasiad;
+} Grafika;
 
 typedef struct Obiekt
 {
     TypObiektu typ;
     Tryb tryb;
-    UBYTE grafika;
     UBYTE klatka;
-    Kierunek kier;
-    UBYTE odleglosc;
 } Obiekt;
 
 typedef struct Komorka
 {
     Obiekt obiekt;    
-    Sasiad sasiedzi[ K_Zlicz ];
+    Grafika ten, poprz, sasiedzi[ K_Zlicz ], poprzSasiedzi[ K_Zlicz ];
+    Kierunek kier;
     BOOL przeskanowane;
 } Komorka, Wiersz[ P_Szer ], Macierz[ P_Wys ][ P_Szer ];
 
